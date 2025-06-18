@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import dbConnect from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js"
+import taskRoutes from "./routes/taskRoutes.js"
+
 dotenv.config();
 
 const app = express();
@@ -12,6 +14,8 @@ app.use(express.json());
 
 app.use("/api/user", userRoutes);
 app.use("/api/project", projectRoutes);
+app.use("/api/task", taskRoutes)
+
 
 const runServer = async () => {
   const isConnected = await dbConnect();

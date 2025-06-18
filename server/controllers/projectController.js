@@ -21,7 +21,7 @@ export const addProject = async (req, res) => {
       return res.status(400).json({ message: "something went wrong" });
     }
 
-    res.status(201).json({ message: "Project added successfully", project });
+    res.status(201).json({ message: "Project added successfully", data: project });
   } catch (err) {
     console.error(err.message);
     return res.status(404).json({ message: err.message });
@@ -40,7 +40,7 @@ export const getProjects = async (req, res) => {
 
     return res
       .status(200)
-      .json({ message: "Successfully retrived projects", projects });
+      .json({ message: "Successfully retrived projects", data: projects });
   } catch (err) {
     console.error(err.message);
     return res.status(404).json({ message: err.message });
@@ -48,7 +48,6 @@ export const getProjects = async (req, res) => {
 };
 
 export const deleteProject = async (req, res) => {
-
   try {
     const project = await Project.findByIdAndDelete(req.params.projectId);
 
@@ -61,3 +60,4 @@ export const deleteProject = async (req, res) => {
     return res.status(404).json({ message: err.message });
   }
 };
+
