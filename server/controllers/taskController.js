@@ -49,6 +49,14 @@ export const updateStatus = async (req, res) => {
       { status },
       { new: true }
     );
+    console.log("Updating Task ID:", taskId);
+    console.log("New Status:", status);
+
+    if (!updatedTask) {
+      return res
+        .status(404)
+        .json({ message: "Task not found or could not be updated" });
+    }
 
     return res
       .status(201)
@@ -69,7 +77,7 @@ export const getAllDetails = async (req, res) => {
     const project = await Project.findOne({ _id: projectId });
 
     if (tasks.length === 0) {
-      return res.status(404).json({ message: "No tasks added" });
+      return res.status(400).json({ message: "No tasks added" });
     }
 
     return res.status(201).json({
@@ -79,6 +87,7 @@ export const getAllDetails = async (req, res) => {
         title: task.title,
         status: task.status,
         createdAt: task.createdAt,
+        taskId: task._id
       })),
     });
   } catch (err) {
